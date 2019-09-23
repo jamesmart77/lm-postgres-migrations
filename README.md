@@ -11,7 +11,7 @@ Supports SSL
 ## API
 
 ```js
-const {createDb, migrate} = require("postgres-migrations")
+const {createDb, migrate} = require("lm-postgres-migrations")
 
 createDb("database-name", {
   defaultDatabase: "postgres", // optional, default: "postgres"
