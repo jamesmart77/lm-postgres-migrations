@@ -146,6 +146,7 @@ test("bad arguments - incorrect user", t => {
           password: PASSWORD,
           host: "localhost",
           port,
+          ssl: false
         },
         "src/__tests__/fixtures/empty",
       ),
@@ -165,6 +166,7 @@ test("bad arguments - incorrect password", t => {
           password: "not_the_password",
           host: "localhost",
           port,
+          ssl: false
         },
         "src/__tests__/fixtures/empty",
       ),
@@ -184,6 +186,7 @@ test("bad arguments - incorrect host", t => {
           password: PASSWORD,
           host: "sillyhost",
           port,
+          ssl: false
         },
         "src/__tests__/fixtures/empty",
       ),
@@ -203,6 +206,7 @@ test("bad arguments - incorrect port", t => {
           password: PASSWORD,
           host: "localhost",
           port: 1234,
+          ssl: false
         },
         "src/__tests__/fixtures/empty",
       ),
@@ -222,6 +226,7 @@ test("no database", t => {
           password: PASSWORD,
           host: "localhost",
           port,
+          ssl: false
         },
         "src/__tests__/fixtures/empty",
       ),
