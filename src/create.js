@@ -4,8 +4,13 @@ const pgtools = require("pgtools")
 const DEFAULT_TIMEOUT = 10000
 
 module.exports = async function createDb(dbName, dbConfig = {}, config = {}) {
-  // eslint-disable-line complexity
   const {user, password, host, port, ssl} = dbConfig;
+  
+  console.log("user: ", typeof user);
+  console.log("password: ", typeof password);
+  console.log("host: ", typeof host);
+  console.log("port: ", typeof port);
+  console.log("ssl: ", typeof ssl);
   
   if (typeof dbName !== "string") {
     throw new Error("Must pass database name as a string")
@@ -23,16 +28,14 @@ module.exports = async function createDb(dbName, dbConfig = {}, config = {}) {
   return create(dbName, dbConfig, config)
 }
 
-async function create(dbName, dbConfig, config) {
-  const {user, password, host, port} = dbConfig
+async function create(dbName, dbConfig) {
+  const {user, password, host, port, ssl} = dbConfig
 
-  const log = config.logger || (() => {})
-
-  log(`Attempting to create database: ${dbName}`)
+  console.log(`Attempting to create database: ${dbName}`)
 
   // pgtools mutates its inputs (tut tut) so create our own object here
   const pgtoolsConfig = {
-    database: dbConfig.defaultDatabase || "postgres",
+    database: dbConfig.defaultDbEngine || "postgres",
     user,
     password,
     host,
@@ -47,18 +50,16 @@ async function create(dbName, dbConfig, config) {
         DEFAULT_TIMEOUT,
         `Timed out trying to create database: ${dbName}`,
       ) // pgtools uses Bluebird
-    log(`Created database: ${dbName}`)
+    console.log(`SUCCESS! Created database: ${dbName}`)
   } catch (err) {
-    if (err) {
-      // we are not worried about duplicate db errors
-      if (err.name !== "duplicate_database") {
-        log(err)
-        throw new Error(
-          `Error creating database. Caused by: '${err.name}: ${err.message}'`,
-        )
-      } else {
-        log(`'${dbName}' database already exists`)
-      }
+
+    if (err.name === "duplicate_database") {
+      console.error(`'${dbName}' database already exists`)
+    } else {
+      console.error("ERROR:", err)
+      throw new Error(
+        `Error creating database. Caused by: '${err.name}: ${err.message}'`,
+      )
     }
   }
 }

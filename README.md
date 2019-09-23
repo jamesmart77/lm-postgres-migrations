@@ -14,7 +14,7 @@ Supports SSL
 const {createDb, migrate} = require("lm-postgres-migrations")
 
 createDb("database-name", {
-  defaultDatabase: "postgres", // optional, default: "postgres"
+  defaultDbEngine: "postgres", // optional, default: "postgres"
   user: "postgres",
   password: "password",
   host: "localhost",
