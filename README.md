@@ -1,15 +1,12 @@
-# Postgres migrations
+# LM Postgres Migrations
 
-[![Travis](https://img.shields.io/travis/ThomWright/postgres-migrations.svg)](https://travis-ci.org/ThomWright/postgres-migrations)
-[![npm](https://img.shields.io/npm/v/postgres-migrations.svg)](https://www.npmjs.com/package/postgres-migrations)
-[![David](https://img.shields.io/david/ThomWright/postgres-migrations.svg)](https://david-dm.org/ThomWright/postgres-migrations)
-[![David](https://img.shields.io/david/dev/ThomWright/postgres-migrations.svg)](https://david-dm.org/ThomWright/postgres-migrations)
-
-A PostgreSQL migration library inspired by the Stack Overflow system described in [Nick Craver's blog](http://nickcraver.com/blog/2016/05/03/stack-overflow-how-we-do-deployment-2016-edition/#database-migrations).
+This library was forked from Thom Wright's [Postgres-Migrations](https://github.com/ThomWright/postgres-migrations).
 
 Requires Node 8.9.3+
 
 Supports PostgreSQL 9.4+
+
+Supports SSL
 
 ## API
 
@@ -22,6 +19,7 @@ createDb("database-name", {
   password: "password",
   host: "localhost",
   port: 5432,
+  ssl: true, //optional, default to false
 })
 .then(() => {
   return migrate({
@@ -170,22 +168,6 @@ pg.types.setTypeParser(DATATYPE_DATE, val => {
 })
 ```
 
-## Further work
-
-- Ability to force migrations to run (i.e. no hash checks)
-- Ability to run migrations up to a set point (e.g. run to migration 5)
-- Ability to configure timeouts (and add timeout to migrations)
-- Ability to configure migration table name
-- CLI if people want it
-
-## Useful resources
-
-[Stack Overflow: How We Do Deployment - 2016 Edition (Database Migrations)](http://nickcraver.com/blog/2016/05/03/stack-overflow-how-we-do-deployment-2016-edition/#database-migrations)
-
-[Database Migrations Done Right](http://www.brunton-spall.co.uk/post/2014/05/06/database-migrations-done-right/)
-
-[Database versioning best practices](http://enterprisecraftsmanship.com/2015/08/10/database-versioning-best-practices/)
-
-## Developing `postgres-migrations`
+## Developing `lm-postgres-migrations`
 
 The tests require Docker to be installed.
