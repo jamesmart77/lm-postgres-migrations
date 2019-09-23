@@ -12,7 +12,7 @@ export interface BaseDBConfig {
   readonly password: string
   readonly host: string
   readonly port: number
-  readonly ssl:boolean
+  readonly ssl: boolean
 }
 
 export interface CreateDBConfig extends BaseDBConfig {

@@ -8,6 +8,7 @@ declare module "pgtools" {
     password: string
     host: string
     port: number
+    ssl: boolean
   }
 
   type CreateDb = (
