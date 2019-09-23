@@ -1,9 +1,9 @@
 {
   "name": "lm-postgres-migrations",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "Stack Overflow style database migrations for PostgreSQL",
   "main": "src/index.js",
-  "types": "typings/pgtools/index.d.ts",
+  "types": "src/index.d.ts",
   "author": "James Martineau",
   "keywords": [
     "postgres",
@@ -32,13 +32,13 @@
   "dependencies": {
     "pg": "^7.12.0",
     "pgtools": "^0.3",
-    "sql-template-strings": "^2.2.2",
+    "sql-template-strings": "^2.2.2"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",
     "@types/node": "^8.10.51",
     "@types/pg": "^7.4.14",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.3",
+    "typescript": "^3.5.3"
   }
 }

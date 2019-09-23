@@ -1,24 +1,20 @@
-import {Client} from "pg"
-import SQL from "sql-template-strings"
-import {Logger, Migration} from "./types"
+const SQL = require("sql-template-strings")
+const dedent = require("dedent-js")
 
-const noop = () => {
-  //
-}
-const insertMigration = async (
-  migrationTableName: string,
-  client: Pick<Client, "query">,
-  migration: Migration,
-  log: Logger,
-) => {
+const noop = () => {}
+const insertMigration = async (migrationTableName, client, migration, log) => {
   log(
-    `Saving migration to '${migrationTableName}': ${migration.id} | ${migration.name} | ${migration.hash}`,
+    `Saving migration to '${migrationTableName}': ${migration.id} | ${
+      migration.name
+    } | ${migration.hash}`,
   )
 
   const sql = SQL`INSERT INTO `
     .append(migrationTableName)
     .append(
-      SQL` ("id", "name", "hash") VALUES (${migration.id},${migration.name},${migration.hash})`,
+      SQL` ("id", "name", "hash") VALUES (${migration.id},${migration.name},${
+        migration.hash
+      })`,
     )
 
   log(`Executing query: ${sql.text}:${sql.values}`)
@@ -26,11 +22,11 @@ const insertMigration = async (
   return client.query(sql)
 }
 
-export const runMigration = (
-  migrationTableName: string,
-  client: Pick<Client, "query">,
-  log: Logger = noop,
-) => async (migration: Migration) => {
+module.exports = (
+  migrationTableName,
+  client,
+  log = noop,
+) => async migration => {
   const inTransaction =
     migration.sql.includes("-- postgres-migrations disable-transaction") ===
     false
@@ -53,12 +49,14 @@ export const runMigration = (
   } catch (err) {
     try {
       await cleanup()
-    } catch {
-      //
-    }
-    throw new Error(`
+    } finally {
+      // eslint-disable-next-line no-unsafe-finally
+      throw new Error(
+        dedent`
 An error occurred running '${migration.name}'. Rolled back this migration.
 No further migrations were run.
-Reason: ${err.message}`)
+Reason: ${err.message}`,
+      )
+    }
   }
 }

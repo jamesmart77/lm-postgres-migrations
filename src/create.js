@@ -1,27 +1,21 @@
-import {CreateDBConfig, Config} from "./types"
-
-// TODO: remove this dependency?
-// tslint:disable ignore-next-line no-var-requires
 const pgtools = require("pgtools")
 
 // Time out after 10 seconds - should probably be able to override this
 const DEFAULT_TIMEOUT = 10000
 
-export async function createDb(
-  dbName: string,
-  dbConfig: CreateDBConfig,
-  config?: Config,
-) {
+module.exports = async function createDb(dbName, dbConfig = {}, config = {}) {
+  // eslint-disable-line complexity
+  const {user, password, host, port, ssl} = dbConfig;
+  
   if (typeof dbName !== "string") {
     throw new Error("Must pass database name as a string")
   }
   if (
-    dbConfig == null ||
-    typeof dbConfig.user !== "string" ||
-    typeof dbConfig.password !== "string" ||
-    typeof dbConfig.host !== "string" ||
-    typeof dbConfig.port !== "number" ||
-    typeof dbConfig.ssl !== "boolean"
+    typeof user !== "string" ||
+    typeof password !== "string" ||
+    typeof host !== "string" ||
+    typeof port !== "number" || 
+    typeof ssl !== "boolean"
   ) {
     throw new Error("Database config problem")
   }
@@ -29,26 +23,16 @@ export async function createDb(
   return create(dbName, dbConfig, config)
 }
 
-async function create(
-  dbName: string,
-  dbConfig: CreateDBConfig,
-  config: Config = {},
-) {
-  const {user, password, host, port, ssl} = dbConfig
+async function create(dbName, dbConfig, config) {
+  const {user, password, host, port} = dbConfig
 
-  const log =
-    config.logger != null
-      ? config.logger
-      : () => {
-          //
-        }
+  const log = config.logger || (() => {})
 
   log(`Attempting to create database: ${dbName}`)
 
   // pgtools mutates its inputs (tut tut) so create our own object here
   const pgtoolsConfig = {
-    database:
-      dbConfig.defaultDatabase != null ? dbConfig.defaultDatabase : "postgres",
+    database: dbConfig.defaultDatabase || "postgres",
     user,
     password,
     host,
