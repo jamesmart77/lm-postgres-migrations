@@ -1,10 +1,10 @@
 {
-  "name": "postgres-migrations",
-  "version": "3.0.2",
+  "name": "lm-postgres-migrations",
+  "version": "0.0.1",
   "description": "Stack Overflow style database migrations for PostgreSQL",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "author": "Thom Wright",
+  "author": "James Martineau",
   "keywords": [
     "postgres",
     "postgresql",
@@ -14,14 +14,14 @@
     "database",
     "db"
   ],
-  "homepage": "https://github.com/thomwright/postgres-migrations#readme",
+  "homepage": "https://github.com/jamesmart77/postgres-migrations#postgres-migrations",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:thomwright/postgres-migrations.git"
+    "url": "git@github.com:jamesmart77/postgres-migrations.git"
   },
   "bugs": {
-    "url": "https://github.com/thomwright/postgres-migrations/issues"
+    "url": "https://github.com/jamesmart77/postgres-migrations/issues"
   },
   "engines": {
     "node": ">8.9.3"
