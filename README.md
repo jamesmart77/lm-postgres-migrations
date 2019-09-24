@@ -1,5 +1,7 @@
 # LM Postgres Migrations
 
+Easy to use package to create Postgres databases and manage migrations!
+
 This library was forked from Thom Wright's [Postgres-Migrations](https://github.com/ThomWright/postgres-migrations).
 
 Requires Node 8.9.3+

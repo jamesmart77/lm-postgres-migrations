@@ -1,6 +1,6 @@
 {
   "name": "lm-postgres-migrations",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Stack Overflow style database migrations for PostgreSQL",
   "main": "src/index.js",
   "author": "James Martineau",
